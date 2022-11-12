@@ -3,11 +3,14 @@
     <div class="textcontent">
       层级:{{ mtype }}
       放大程度：{{ map.zoom }}
+      <el-button type="warning">警告按钮</el-button>
     </div>
     <baidu-map class="map" :center="map.center" map-type="BMAP_HYBRID_MAP"
                :scroll-wheel-zoom="true" :zoom="map.zoom"
                @ready="handler">
+      <bm-control>
 
+      </bm-control>
       <bm-traffic>
       </bm-traffic>
       <bm-navigation anchor="BMAP_ANCHOR_TOP_RIGHT"></bm-navigation>
