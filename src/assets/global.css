@@ -19,4 +19,12 @@ html, body, #app {
   opacity: 0.5;
 }
 
+.header {
+  width: 100%;
+  position: absolute;
+  padding: 10px 0;
+  text-align: center;
+  z-index: 999;
+}
+
 /*# sourceMappingURL=global.css.map */

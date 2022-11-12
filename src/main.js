@@ -4,10 +4,14 @@ import router from './router'
 import store from './store'
 import './assets/global.css'
 import {
-    Button
+    Button,
+    Col,
+    Row
 } from "element-ui";
 
 Vue.use(Button)
+Vue.use(Col)
+Vue.use(Row)
 
 Vue.config.productionTip = false
 import BaiduMap from 'vue-baidu-map'

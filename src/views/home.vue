@@ -3,41 +3,44 @@
     <div class="textcontent">
       层级:{{ mtype }}
       放大程度：{{ map.zoom }}
-      <el-button type="warning">警告按钮</el-button>
+
+    </div>
+    <div class="header">
+      <el-button type="primary" @click="showall">查看全校</el-button>
+      <el-button type="success" @click="showA">潭山片区</el-button>
+      <el-button type="info" @click="showB">浉源片区</el-button>
+      <el-button type="primary" @click="showC">景明片区</el-button>
+      <el-button type="success" @click="showD">海苑片区</el-button>
     </div>
     <baidu-map class="map" :center="map.center" map-type="BMAP_HYBRID_MAP"
                :scroll-wheel-zoom="true" :zoom="map.zoom"
                @ready="handler">
-      <bm-control>
-
-      </bm-control>
       <bm-traffic>
       </bm-traffic>
       <bm-navigation anchor="BMAP_ANCHOR_TOP_RIGHT"></bm-navigation>
       <bm-map-type :map-types="['BMAP_NORMAL_MAP', 'BMAP_HYBRID_MAP']" anchor="BMAP_ANCHOR_TOP_LEFT"></bm-map-type>
       <!--    <bm-geolocation anchor="BMAP_ANCHOR_BOTTOM_RIGHT" :showAddressBar="true" :autoLocation="true"></bm-geolocation>-->
       <!-- 南门区 -->
-      <bm-polygon :path="area1" @click="active!==1&&showA()" :fillColor="active===1?'':'#95e1d3'">
+      <bm-polygon :path="area1" @click="active!==1&&showA()" strokeColor="#95e1d3" :fillColor="active===1?'':'#95e1d3'">
       </bm-polygon>
-      <bm-label content="南门片区" @click="showA" :position="A"
+      <bm-label content="潭山片区" @click="showA" :position="A"
                 :labelStyle="{color: 'red',border:'none',background:'none', fontSize : '15px'}" title="点击查看"/>
-      <bm-polygon :path="are2" @click="active!==2&&showB()" :fillColor="active===2?'':'#eaffd0'">
+      <bm-polygon :path="are2" @click="active!==2&&showB()" strokeColor="#eaffd0" :fillColor="active===2?'':'#eaffd0'">
       </bm-polygon>
-      <!--景明片区-->0
+      <!--景明片区-->
       <bm-label content="景明片区" @click="showB" :position="B"
                 :labelStyle="{color: 'red',border:'none',background:'none',  fontSize : '18px'}" title="点击查看"/>
       <!--  景明片区-->
-      <bm-polygon :path="area3" @click="active!==3&&showC()" :fillColor="active===3?'':'#fce38a'">
+      <bm-polygon :path="area3" @click="active!==3&&showC()" strokeColor="#88ada6" :fillColor="active===3?'':'#88ada6'">
       </bm-polygon>
 
-      <bm-label content="挑李片区" @click="showC" :position="C"
+      <bm-label content="浉源片区" @click="showC" :position="C"
                 :labelStyle="{color: 'red',border:'none',background:'none',  fontSize : '18px'}" title="点击查看"/>
       <!--    海苑区-->
-      <bm-polygon :path="area4" @click="active!==4&&showD()" :fillColor="active===4?'':'#3490de'">
+      <bm-polygon :path="area4" @click="active!==4&&showD()" strokeColor="#3490de" :fillColor="active===4?'':'#3490de'">
       </bm-polygon>
       <bm-label content="海苑片区" @click="showD" :position="D"
                 :labelStyle="{color: 'red',border:'none',background:'none',  fontSize : '18px'}" title="点击查看"/>
-      // 点
       <bm-label :key="item.name" v-if="item.type===active&&mtype>=2" v-for="item in list" :content="item.name"
                 :position="item.position"
                 @click="get3(item.id)"
@@ -317,6 +320,12 @@ export default {
       map.addEventListener('click', function (e) {
         console.log("{lng:" + e.point.lng + ", lat: " + e.point.lat + "},")
       })
+    },
+    showall() {
+      this.map.center = {lng: 114.048924, lat: 32.140866}
+      this.map.zoom = 17
+      this.mtype = 1
+      this.active = 0
     },
     showA() {
       this.map.center = {lng: 114.047868, lat: 32.13678}
