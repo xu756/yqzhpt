@@ -7,7 +7,7 @@ html, body, #app {
 
 .textcontent {
   position: absolute;
-  top: 50px;
+  top: 70px;
   color: aliceblue;
   left: 10px;
   padding: 15px;
@@ -19,9 +19,20 @@ html, body, #app {
   opacity: 0.5;
 }
 
+.map {
+  width: 100%;
+  height: 100%;
+}
+
+.title {
+  height: 40px;
+  line-height: 40px;
+}
+
 .header {
   width: 100%;
   position: absolute;
+  top: 40px;
   padding: 10px 0;
   text-align: center;
   z-index: 999;

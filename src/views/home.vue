@@ -3,7 +3,9 @@
     <div class="textcontent">
       层级:{{ mtype }}
       放大程度：{{ map.zoom }}
-
+    </div>
+    <div class="title">
+      信阳师范学院网格化管理体系一览表
     </div>
     <div class="header">
       <el-button type="primary" @click="showall">查看全校</el-button>
@@ -18,7 +20,6 @@
       <bm-traffic>
       </bm-traffic>
       <bm-navigation anchor="BMAP_ANCHOR_TOP_RIGHT"></bm-navigation>
-      <bm-map-type :map-types="['BMAP_NORMAL_MAP', 'BMAP_HYBRID_MAP']" anchor="BMAP_ANCHOR_TOP_LEFT"></bm-map-type>
       <!--    <bm-geolocation anchor="BMAP_ANCHOR_BOTTOM_RIGHT" :showAddressBar="true" :autoLocation="true"></bm-geolocation>-->
       <!-- 南门区 -->
       <bm-polygon :path="area1" @click="active!==1&&showA()" strokeColor="#95e1d3" :fillColor="active===1?'':'#95e1d3'">
@@ -359,9 +360,4 @@ export default {
 }
 </script>
 
-<style scoped>
-.map {
-  width: 100%;
-  height: 100%;
-}
-</style>
+
