@@ -32,7 +32,8 @@ import axios from 'axios'
 axios.defaults.baseURL = '/api'
 Vue.prototype.$http = axios
 Vue.use(BaiduMap, {
-    ak: 'gGLiP6v3jRwGwKHeuiewTVlAcB1ajieX'
+    ak: 'gGLiP6v3jRwGwKHeuiewTVlAcB1ajieX',
+    dragging:true
 })
 
 new Vue({

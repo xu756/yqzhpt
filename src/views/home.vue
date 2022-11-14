@@ -252,14 +252,9 @@
       <el-button type="info" @click="showC" v-show="active!==3">浉源片区</el-button>
       <el-button type="success" @click="showD" v-show="active!==4">海苑片区</el-button>
     </div>
-    <baidu-map :dragging="map.dragging" class="map" :center="map.center" map-type="BMAP_HYBRID_MAP"
-               :scroll-wheel-zoom="true" :zoom="map.zoom"
-               @ready="handler">
-      <bm-traffic>
-      </bm-traffic>
-      <bm-navigation anchor="BMAP_ANCHOR_BOTTOM_RIGHT"></bm-navigation>
-      <!--    <bm-geolocation anchor="BMAP_ANCHOR_BOTTOM_RIGHT" :showAddressBar="true" :autoLocation="true"></bm-geolocation>-->
-      <!-- 南门区 -->
+    <baidu-map :dragging="true" :inertial-dragging="true" style="width: 100%;height: 100%;" :continuous-zoom="true" :center="map.center"
+               map-type="BMAP_HYBRID_MAP"
+               :scroll-wheel-zoom="true" :zoom="map.zoom">
       <bm-polygon :path="area1" @click="active!==1&&showA()" strokeColor="#95e1d3" :fillColor="active===1?'':'#95e1d3'">
       </bm-polygon>
       <bm-label content="南门片区" @click="showA" :position="A"
@@ -558,13 +553,6 @@ export default {
     mt3: {},
   }),
   methods: {
-    handler({BMap, map}) {
-      let me = this;
-      // 点击事件获取经纬度
-      map.addEventListener('click', function (e) {
-        console.log("{lng:" + e.point.lng + ", lat: " + e.point.lat + "},")
-      })
-    },
     showall() {
       this.map.center = {lng: 114.048924, lat: 32.140866}
       this.map.zoom = 17
