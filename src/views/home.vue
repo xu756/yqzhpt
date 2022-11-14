@@ -1,30 +1,268 @@
 <template>
   <div class="map">
     <div class="textcontent">
-      层级:{{ mtype }}
-      放大程度：{{ map.zoom }}
+      <div v-if="mtype===1"><h2 style="text-align: center;color: #0c8918"> 信阳师范学院谭山校区</h2>
+        <el-row class="line">
+          <el-col :span="5" class="l">总指挥:</el-col>
+          <el-col :span="15" :push="2">校长</el-col>
+        </el-row>
+        <el-row class="line">
+          <el-col :span="5" class="l">联系方式:</el-col>
+          <el-col :span="15" :push="2">电话</el-col>
+        </el-row>
+        <el-row class="line">
+          <el-col :span="5" class="l">学生人数:</el-col>
+          <el-col :span="15" :push="2">24000</el-col>
+        </el-row>
+        <el-row class="line">
+          <el-col :span="5" class="l">教师人数:</el-col>
+          <el-col :span="15" :push="2">1162</el-col>
+        </el-row>
+        <el-row class="line">
+          <el-col :span="5" class="l">宿舍楼:</el-col>
+          <el-col :span="15" :push="2">31栋</el-col>
+        </el-row>
+      </div>
+      <div v-if="mtype===2">
+        <h2 style="text-align: center;color: #e29c45"> {{ mt2.Name }}</h2>
+        <el-row class="line">
+          <el-col :span="6" class="l">总指挥:</el-col>
+          <el-col :span="15" :push="2">{{ mt2.Leader1 }}</el-col>
+        </el-row>
+        <el-row class="line">
+          <el-col :span="6" class="l">联系方式:</el-col>
+          <el-col :span="15" :push="2">{{ mt2.Tel }}</el-col>
+        </el-row>
+        <el-row class="line">
+          <el-col :span="6" class="l">宿舍楼:</el-col>
+          <el-col :span="15" :push="2">{{ mt2.Floors }}栋</el-col>
+        </el-row>
+        <el-row class="line">
+          <el-col :span="6" class="l">学生人数:</el-col>
+          <el-col :span="15" :push="2">{{ mt2.Students }}人</el-col>
+        </el-row>
+        <el-row class="line">
+          <el-col :span="6" class="l">教师人数:</el-col>
+          <el-col :span="15" :push="2">{{ mt2.Teachers }}人</el-col>
+        </el-row>
+        <el-table
+            stripe
+            :data="mt2.Floor"
+            height="450"
+            style="width: 100%">
+          <el-table-column width="30" type="expand">
+            <template slot-scope="props">
+              <el-form v-for="item in props.row.Emargency" class="f" :key="item.Tel" label-position="left" inlin>
+                <el-form-item label="姓名：">
+                  <span>{{ item.Name }}</span>
+                </el-form-item>
+                <el-form-item label="职位：">
+                  <span>{{ item.Work }}</span>
+                </el-form-item>
+                <el-form-item label="联系方式：">
+                  <span>{{ item.Tel }}</span>
+                </el-form-item>
+              </el-form>
+            </template>
+          </el-table-column>
+          <el-table-column
+              label="序号"
+              type="index"
+              width="25"
+          ></el-table-column>
+          <el-table-column
+              prop="Name"
+              align="center"
+              label="楼层"
+              width="80"
+          >
+          </el-table-column>
+          <el-table-column
+              prop="XY"
+              width="130"
+              align="center"
+              label="负责学院">
+          </el-table-column>
+          <el-table-column
+              prop="Students"
+              width="80"
+              align="center"
+              label="学生人数">
+          </el-table-column>
+          <el-table-column
+              prop="Teachers"
+              align="center"
+              label="教师人数"
+              width="80">
+          </el-table-column>
+
+        </el-table>
+      </div>
+      <div v-if="mtype===3">
+        <h2 style="text-align: center;color: #003472"> {{ mt3.Name }}</h2>
+        <el-row class="line">
+          <el-col :span="5" class="l">负责学院:</el-col>
+          <el-col :span="8" :push="2">{{ mt3.XY }}</el-col>
+        </el-row>
+        <el-row class="line">
+          <el-col :span="5" class="l">学生人数:</el-col>
+          <el-col :span="15" :push="2">{{ mt3.Students }}人</el-col>
+        </el-row>
+        <el-row class="line">
+          <el-col :span="5" class="l">教师人数:</el-col>
+          <el-col :span="15" :push="2">{{ mt3.Teachers }}人</el-col>
+        </el-row>
+        <el-collapse accordion>
+          <el-collapse-item title="应急协调组">
+            <el-table
+                :data="mt3.Emargency"
+                style="width: 100%">
+              <el-table-column
+                  type="index"
+                  align="center"
+                  label="序号"
+                  width="50">
+              </el-table-column>
+              <el-table-column
+                  prop="Name"
+                  label="姓名"
+                  align="center"
+                  width="80">
+              </el-table-column>
+              <el-table-column
+                  prop="Work"
+                  label="岗位明细"
+                  align="center"
+                  width="130">
+              </el-table-column>
+              <el-table-column
+                  prop="Tel"
+                  label="联系方式"
+                  align="center"
+                  width="130">
+              </el-table-column>
+
+            </el-table>
+          </el-collapse-item>
+          <el-collapse-item title="生活保障组">
+            <el-table
+                :data="mt3.Life"
+                style="width: 100%">
+              <el-table-column
+                  type="index"
+                  align="center"
+                  label="序号"
+                  width="50">
+              </el-table-column>
+              <el-table-column
+                  prop="Name"
+                  label="姓名"
+                  align="center"
+                  width="80">
+              </el-table-column>
+              <el-table-column
+                  prop="Work"
+                  label="岗位明细"
+                  align="center"
+                  width="130">
+              </el-table-column>
+              <el-table-column
+                  prop="Tel"
+                  label="联系方式"
+                  align="center"
+                  width="130">
+              </el-table-column>
+
+            </el-table>
+          </el-collapse-item>
+          <el-collapse-item title="楼层管控组">
+            <el-table
+                :data="mt3.Control"
+                style="width: 100%">
+              <el-table-column
+                  type="index"
+                  align="center"
+                  label="序号"
+                  width="50">
+              </el-table-column>
+              <el-table-column
+                  prop="Name"
+                  label="姓名"
+                  align="center"
+                  width="80">
+              </el-table-column>
+              <el-table-column
+                  prop="Work"
+                  label="岗位明细"
+                  align="center"
+                  width="130">
+              </el-table-column>
+              <el-table-column
+                  prop="Tel"
+                  label="联系方式"
+                  align="center"
+                  width="130">
+              </el-table-column>
+
+            </el-table>
+          </el-collapse-item>
+          <el-collapse-item title="核酸采集组">
+            <el-table
+                :data="mt3.Hs"
+                style="width: 100%">
+              <el-table-column
+                  type="index"
+                  align="center"
+                  label="序号"
+                  width="50">
+              </el-table-column>
+              <el-table-column
+                  prop="Name"
+                  label="姓名"
+                  align="center"
+                  width="80">
+              </el-table-column>
+              <el-table-column
+                  prop="Work"
+                  label="岗位明细"
+                  align="center"
+                  width="130">
+              </el-table-column>
+              <el-table-column
+                  prop="Tel"
+                  label="联系方式"
+                  align="center"
+                  width="130">
+              </el-table-column>
+
+            </el-table>
+          </el-collapse-item>
+        </el-collapse>
+
+
+      </div>
     </div>
     <div class="title">
-      信阳师范学院网格化管理体系一览表
+      信阳师范学院网格化管理体系可视地图
     </div>
     <div class="header">
-      <el-button type="primary" @click="showall">查看全校</el-button>
-      <el-button type="success" @click="showA">潭山片区</el-button>
-      <el-button type="info" @click="showB">浉源片区</el-button>
-      <el-button type="primary" @click="showC">景明片区</el-button>
-      <el-button type="success" @click="showD">海苑片区</el-button>
+      <el-button type="primary" @click="showall" v-show="mtype!==1">查看全校</el-button>
+      <el-button type="success" @click="showA" v-show="active!==1">南门片区</el-button>
+      <el-button type="primary" @click="showB" v-show="active!==2">景明片区</el-button>
+      <el-button type="info" @click="showC" v-show="active!==3">浉源片区</el-button>
+      <el-button type="success" @click="showD" v-show="active!==4">海苑片区</el-button>
     </div>
-    <baidu-map class="map" :center="map.center" map-type="BMAP_HYBRID_MAP"
+    <baidu-map :dragging="map.dragging" class="map" :center="map.center" map-type="BMAP_HYBRID_MAP"
                :scroll-wheel-zoom="true" :zoom="map.zoom"
                @ready="handler">
       <bm-traffic>
       </bm-traffic>
-      <bm-navigation anchor="BMAP_ANCHOR_TOP_RIGHT"></bm-navigation>
+      <bm-navigation anchor="BMAP_ANCHOR_BOTTOM_RIGHT"></bm-navigation>
       <!--    <bm-geolocation anchor="BMAP_ANCHOR_BOTTOM_RIGHT" :showAddressBar="true" :autoLocation="true"></bm-geolocation>-->
       <!-- 南门区 -->
       <bm-polygon :path="area1" @click="active!==1&&showA()" strokeColor="#95e1d3" :fillColor="active===1?'':'#95e1d3'">
       </bm-polygon>
-      <bm-label content="潭山片区" @click="showA" :position="A"
+      <bm-label content="南门片区" @click="showA" :position="A"
                 :labelStyle="{color: 'red',border:'none',background:'none', fontSize : '15px'}" title="点击查看"/>
       <bm-polygon :path="are2" @click="active!==2&&showB()" strokeColor="#eaffd0" :fillColor="active===2?'':'#eaffd0'">
       </bm-polygon>
@@ -45,8 +283,10 @@
       <bm-label :key="item.name" v-if="item.type===active&&mtype>=2" v-for="item in list" :content="item.name"
                 :position="item.position"
                 @click="get3(item.id)"
-                :labelStyle="{color: '#00000',border:'none',background:'#fffff', fontSize : '16px'}"
-                :offset="{width: -35, height: 30}"/>
+                :labelStyle="{color: '#00000',border:'none',borderRadius:'5px',background:'#fffff', fontSize : '16px'}"
+                :offset="{width: -35, height: 30}">
+
+      </bm-label>
     </baidu-map>
   </div>
 
@@ -78,7 +318,7 @@ export default {
       {lng: 114.049332, lat: 32.137353},
       {lng: 114.04821, lat: 32.137823},
     ],
-    // 景明
+    // 浉源片区
     are2: [
       {lng: 114.050316, lat: 32.141997},
       {lng: 114.051354, lat: 32.141932},
@@ -100,7 +340,7 @@ export default {
 
 
     ],
-    // 桃李
+    //
     area3: [
       {lng: 114.04909210559272, lat: 32.14088624467942},
       {lng: 114.04860702061733, lat: 32.14104293628163},
@@ -312,7 +552,10 @@ export default {
       }
 
 
-    ]
+    ],
+    mt1: {},
+    mt2: {},
+    mt3: {},
   }),
   methods: {
     handler({BMap, map}) {
@@ -333,27 +576,43 @@ export default {
       this.mtype = 2
       this.active = 1
       this.map.zoom = 20
+      this.$http.post("getarea/A").then(({data}) => {
+        this.mt2 = data.data
+      })
     },
     showB() {
       this.map.center = {lng: 114.04956, lat: 32.142771},
           this.mtype = 2
       this.active = 2
       this.map.zoom = 20
+      this.$http.post("getarea/B").then(({data}) => {
+        this.mt2 = data.data
+      })
     },
     showC() {
       this.map.center = {lng: 114.048035, lat: 32.14212}
       this.mtype = 2
       this.active = 3
       this.map.zoom = 20
+      this.$http.post("getarea/C").then(({data}) => {
+        this.mt2 = data.data
+      })
     },
     showD() {
       this.map.center = this.D
       this.mtype = 2
       this.active = 4
       this.map.zoom = 20
+      this.$http.post("getarea/D").then(({data}) => {
+        this.mt2 = data.data
+      })
     },
     get3(id) {
       this.mtype = 3
+      this.$http.post("getfloor/" + id).then(({data}) => {
+        console.log(data.data)
+        this.mt3 = data.data
+      })
     }
 
   }
