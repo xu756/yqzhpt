@@ -37,6 +37,24 @@ html, body, #app {
   padding: 10px 0;
   text-align: center;
   z-index: 999;
+  .el-button {
+    float: left;
+    margin:0 5px  !important;
+  }
+}
+
+.lb {
+  position: absolute;
+  top: 20%;
+  z-index: 999;
+  right: 20px;
+  width: 86px;
+
+  .el-button {
+    float: left;
+    width: 100%;
+    margin: 5px 0 !important;
+  }
 }
 
 .textcontent {
@@ -47,7 +65,7 @@ html, body, #app {
   padding: 15px;
   border-radius: 20px;
   z-index: 999;
-  width: 450px;
+  width: 400px;
   height: 70%;
   overflow: scroll;
   background-color: #FFF;
@@ -88,5 +106,5 @@ html, body, #app {
   font-size: 16px !important;
   padding-left: 10px;
   font-weight: 600 !important;
-  color: #ff3300 !important;
+  color: #ff2121 !important;
 }

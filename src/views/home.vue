@@ -65,15 +65,11 @@
               </el-form>
             </template>
           </el-table-column>
-          <el-table-column
-              label="序号"
-              type="index"
-              width="25"
-          ></el-table-column>
+
           <el-table-column
               prop="Name"
               align="center"
-              label="楼层"
+              label="楼栋"
               width="80"
           >
           </el-table-column>
@@ -252,24 +248,34 @@
       <el-button type="info" @click="showC" v-show="active!==3">浉源片区</el-button>
       <el-button type="success" @click="showD" v-show="active!==4">海苑片区</el-button>
     </div>
-    <baidu-map :dragging="true" :inertial-dragging="true" style="width: 100%;height: 100%;" :continuous-zoom="true" :center="map.center"
+    <div class="lb">
+      <el-button type="warning" @click="get3(item.id,item.position)" :key="item.name"
+                 v-if="item.type===active&&mtype>=2"
+                 v-for="item in list">
+        {{ item.name }}
+      </el-button>
+    </div>
+
+    <baidu-map :dragging="true" :inertial-dragging="true" style="width: 100%;height: 100%;" :continuous-zoom="true"
+               :center="map.center"
                map-type="BMAP_HYBRID_MAP"
-               :scroll-wheel-zoom="true" :zoom="map.zoom">
+               :scroll-wheel-zoom="true" :zoom="map.zoom" @ready="handler">
+
       <bm-polygon :path="area1" @click="active!==1&&showA()" strokeColor="#95e1d3" :fillColor="active===1?'':'#95e1d3'">
       </bm-polygon>
       <bm-label content="南门片区" @click="showA" :position="A"
-                :labelStyle="{color: 'red',border:'none',background:'none', fontSize : '15px'}" title="点击查看"/>
+                :labelStyle="{color: '#f8f3d4',border:'none',background:'none', fontSize : '15px'}" title="点击查看"/>
       <bm-polygon :path="are2" @click="active!==2&&showB()" strokeColor="#eaffd0" :fillColor="active===2?'':'#eaffd0'">
       </bm-polygon>
       <!--景明片区-->
       <bm-label content="景明片区" @click="showB" :position="B"
-                :labelStyle="{color: 'red',border:'none',background:'none',  fontSize : '18px'}" title="点击查看"/>
+                :labelStyle="{color: '#00adb5',border:'none',background:'none',  fontSize : '18px'}" title="点击查看"/>
       <!--  景明片区-->
       <bm-polygon :path="area3" @click="active!==3&&showC()" strokeColor="#88ada6" :fillColor="active===3?'':'#88ada6'">
       </bm-polygon>
 
       <bm-label content="浉源片区" @click="showC" :position="C"
-                :labelStyle="{color: 'red',border:'none',background:'none',  fontSize : '18px'}" title="点击查看"/>
+                :labelStyle="{color: '#eeeeee',border:'none',background:'none',  fontSize : '18px'}" title="点击查看"/>
       <!--    海苑区-->
       <bm-polygon :path="area4" @click="active!==4&&showD()" strokeColor="#3490de" :fillColor="active===4?'':'#3490de'">
       </bm-polygon>
@@ -277,8 +283,14 @@
                 :labelStyle="{color: 'red',border:'none',background:'none',  fontSize : '18px'}" title="点击查看"/>
       <bm-label :key="item.name" v-if="item.type===active&&mtype>=2" v-for="item in list" :content="item.name"
                 :position="item.position"
-                @click="get3(item.id)"
+                @click="get3(item.id,item.position)"
                 :labelStyle="{color: '#00000',border:'none',borderRadius:'5px',background:'#fffff', fontSize : '16px'}"
+                :offset="{width: -35, height: 30}">
+
+      </bm-label>
+      <bm-label :key="item.name" v-if="item.type===active&&mtype>=2" v-for="item in ct" :content="item.name"
+                :position="item.position"
+                :labelStyle="{color: '#00000',border:'none',borderRadius:'5px',background:'#16a951', fontSize : '16px'}"
                 :offset="{width: -35, height: 30}">
 
       </bm-label>
@@ -520,7 +532,7 @@ export default {
         id: 29,
         position: {lng: 114.048966, lat: 32.139901},
       }, {
-        name: "21楼",
+        name: "21号楼",
         type: 4,
         id: 21,
         position: {lng: 114.048804, lat: 32.139458},
@@ -548,11 +560,38 @@ export default {
 
 
     ],
+    ct: [
+      {
+        name: "谭山餐厅",
+        type: 1,
+        position: {lng: 114.047726, lat: 32.136881},
+      }, {
+        name: "景明餐厅",
+        type: 2,
+        position: {lng: 114.049854, lat: 32.142884},
+      },
+      {
+        name: "浉源餐厅",
+        type: 3,
+        position: {lng: 114.048994, lat: 32.141423},
+      }, {
+        name: "海苑餐厅",
+        type: 4,
+        position: {lng: 114.050286, lat: 32.139412},
+      }
+    ],
     mt1: {},
     mt2: {},
     mt3: {},
   }),
   methods: {
+    handler({BMap, map}) {
+      let me = this;
+      // 点击事件获取经纬度
+      map.addEventListener('click', function (e) {
+        console.log("{lng:" + e.point.lng + ", lat: " + e.point.lat + "},")
+      })
+    },
     showall() {
       this.map.center = {lng: 114.048924, lat: 32.140866}
       this.map.zoom = 17
@@ -595,10 +634,10 @@ export default {
         this.mt2 = data.data
       })
     },
-    get3(id) {
+    get3(id, position) {
       this.mtype = 3
+      this.map.center = position
       this.$http.post("getfloor/" + id).then(({data}) => {
-        console.log(data.data)
         this.mt3 = data.data
       })
     }

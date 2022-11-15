@@ -31,9 +31,11 @@ import axios from 'axios'
 // 配置请求的跟路径
 axios.defaults.baseURL = '/api'
 Vue.prototype.$http = axios
+import VueTouch from "vue-touch";
+Vue.use(VueTouch, {name: "v-touch"});
+
 Vue.use(BaiduMap, {
     ak: 'gGLiP6v3jRwGwKHeuiewTVlAcB1ajieX',
-    dragging:true
 })
 
 new Vue({
