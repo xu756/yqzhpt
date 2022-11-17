@@ -84,14 +84,17 @@ html, body, #app {
   text-align: right;
 }
 
+.f .el-form-item {
+  margin-bottom: 0;
+}
 .f label {
   padding-left: 50px;
-  color: #99a9bf;
+  color: #222225;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 15px;
 }
 .f .el-form-item__content {
-  font-size: 18px;
+  font-size: 15px;
 }
 
 .el-collapse-item__header {

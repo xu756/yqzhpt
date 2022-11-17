@@ -53,11 +53,8 @@
           <el-table-column width="30" type="expand">
             <template slot-scope="props">
               <el-form v-for="item in props.row.Emargency" class="f" :key="item.Tel" label-position="left" inlin>
-                <el-form-item label="姓名：">
+                <el-form-item label="楼长：">
                   <span>{{ item.Name }}</span>
-                </el-form-item>
-                <el-form-item label="职位：">
-                  <span>{{ item.Work }}</span>
                 </el-form-item>
                 <el-form-item label="联系方式：">
                   <span>{{ item.Tel }}</span>
@@ -108,6 +105,7 @@
           <el-col :span="5" class="l">教师人数:</el-col>
           <el-col :span="15" :push="2">{{ mt3.Teachers }}人</el-col>
         </el-row>
+
         <el-collapse accordion>
           <el-collapse-item title="应急协调组">
             <el-table
