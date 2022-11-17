@@ -12,7 +12,9 @@ import {
     Form,
     FormItem,
     Collapse,
-    CollapseItem
+    CollapseItem,
+    Tabs,
+    TabPane,
 } from "element-ui";
 import 'element-ui/lib/theme-chalk/index.css'
 
@@ -25,6 +27,8 @@ Vue.use(Form)
 Vue.use(FormItem)
 Vue.use(Collapse)
 Vue.use(CollapseItem)
+Vue.use(Tabs)
+Vue.use(TabPane)
 Vue.config.productionTip = false
 import BaiduMap from 'vue-baidu-map'
 import axios from 'axios'
@@ -32,6 +36,7 @@ import axios from 'axios'
 axios.defaults.baseURL = '/api'
 Vue.prototype.$http = axios
 import VueTouch from "vue-touch";
+
 Vue.use(VueTouch, {name: "v-touch"});
 
 Vue.use(BaiduMap, {

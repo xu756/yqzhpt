@@ -106,8 +106,9 @@
           <el-col :span="15" :push="2">{{ mt3.Teachers }}人</el-col>
         </el-row>
 
-        <el-collapse accordion>
-          <el-collapse-item title="应急协调组">
+        <el-tabs stretch type="border-card">
+          <el-tab-pane icon="el-icon-search">
+            <span slot="label"><i class="iconfont icon-yingjizhihui"></i> 应急协调组</span>
             <el-table
                 :data="mt3.Emargency"
                 style="width: 100%">
@@ -127,7 +128,7 @@
                   prop="Work"
                   label="岗位明细"
                   align="center"
-                  width="130">
+                  width="100">
               </el-table-column>
               <el-table-column
                   prop="Tel"
@@ -137,8 +138,9 @@
               </el-table-column>
 
             </el-table>
-          </el-collapse-item>
-          <el-collapse-item title="生活保障组">
+          </el-tab-pane>
+          <el-tab-pane>
+            <span slot="label"><i class="iconfont icon-shenghuoyongpin"></i> 生活保障组</span>
             <el-table
                 :data="mt3.Life"
                 style="width: 100%">
@@ -152,13 +154,13 @@
                   prop="Name"
                   label="姓名"
                   align="center"
-                  width="80">
+                  width="65">
               </el-table-column>
               <el-table-column
                   prop="Work"
                   label="岗位明细"
                   align="center"
-                  width="130">
+                  width="100">
               </el-table-column>
               <el-table-column
                   prop="Tel"
@@ -168,8 +170,9 @@
               </el-table-column>
 
             </el-table>
-          </el-collapse-item>
-          <el-collapse-item title="楼层管控组">
+          </el-tab-pane>
+          <el-tab-pane>
+            <span slot="label"><i class="iconfont icon-fenshiguankong"></i> 楼层管控组</span>
             <el-table
                 :data="mt3.Control"
                 style="width: 100%">
@@ -177,13 +180,13 @@
                   type="index"
                   align="center"
                   label="序号"
-                  width="50">
+                  width="40">
               </el-table-column>
               <el-table-column
                   prop="Name"
                   label="姓名"
                   align="center"
-                  width="80">
+                  width="65">
               </el-table-column>
               <el-table-column
                   prop="Work"
@@ -199,8 +202,9 @@
               </el-table-column>
 
             </el-table>
-          </el-collapse-item>
-          <el-collapse-item title="核酸采集组">
+          </el-tab-pane>
+          <el-tab-pane>
+            <span slot="label"><i class="iconfont icon-a-shiguanhesuan"></i> 核酸采集组</span>
             <el-table
                 :data="mt3.Hs"
                 style="width: 100%">
@@ -214,13 +218,13 @@
                   prop="Name"
                   label="姓名"
                   align="center"
-                  width="80">
+                  width="65">
               </el-table-column>
               <el-table-column
                   prop="Work"
                   label="岗位明细"
                   align="center"
-                  width="130">
+                  width="100">
               </el-table-column>
               <el-table-column
                   prop="Tel"
@@ -230,8 +234,8 @@
               </el-table-column>
 
             </el-table>
-          </el-collapse-item>
-        </el-collapse>
+          </el-tab-pane>
+        </el-tabs>
 
 
       </div>
@@ -307,6 +311,7 @@ export default {
       dragging: true,
 
     },
+    ispc: true,
     A: {lng: 114.04715176569117, lat: 32.136322960249466},
     B: {lng: 114.050312, lat: 32.14267},
     C: {lng: 114.048035, lat: 32.14212},
@@ -582,13 +587,18 @@ export default {
     mt2: {},
     mt3: {},
   }),
+  mounted() {
+    if (this._isMobile()) {
+      this.ispc = false;
+    }
+  },
   methods: {
     handler({BMap, map}) {
       let me = this;
-      // 点击事件获取经纬度
-      map.addEventListener('click', function (e) {
-        console.log("{lng:" + e.point.lng + ", lat: " + e.point.lat + "},")
-      })
+      // // 点击事件获取经纬度
+      // map.addEventListener('click', function (e) {
+      //   console.log("{lng:" + e.point.lng + ", lat: " + e.point.lat + "},")
+      // })
     },
     showall() {
       this.map.center = {lng: 114.048924, lat: 32.140866}
@@ -638,8 +648,10 @@ export default {
       this.$http.post("getfloor/" + id).then(({data}) => {
         this.mt3 = data.data
       })
+    },
+    _isMobile() {
+      return navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i);
     }
-
   }
 }
 </script>

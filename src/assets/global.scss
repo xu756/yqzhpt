@@ -70,7 +70,7 @@ html, body, #app {
   height: 70%;
   overflow: scroll;
   background-color: #FFF;
-  opacity: 0.8;
+  opacity: 0.9;
 
   &::-webkit-scrollbar {
     width: 0 !important
@@ -111,4 +111,13 @@ html, body, #app {
   padding-left: 10px;
   font-weight: 600 !important;
   color: #ff2121 !important;
+}
+
+.el-tabs__item {
+  padding: 0 !important;
+}
+
+.el-tabs--border-card > .el-tabs__header .el-tabs__item.is-active {
+  color: #057748 !important;
+  font-weight: bold;
 }
